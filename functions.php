@@ -1,35 +1,8 @@
 <?php 
-/*
-**
-*
-* @auther:yefengs.com
-**
-*
-*
-*
-*
-*
-*/
-
-
-
-//add_filter( 'the_content', 'pre_content_filter', 0 );
 /**
- * 转换pre标签中的html代码
- *
- * 使用'the_content'钩子.
- *
- * @author c.bavota
- */
-function pre_content_filter( $content ) {
-	return preg_replace_callback( '|<pre.*>(.*)</pre|isU' , 'convert_pre_entities', $content );
-}
-
-function convert_pre_entities( $matches ) {
-	return str_replace( $matches[1], htmlentities( $matches[1] ), $matches[0] );
-}
-
-
+* functions.php
+* @author:yefengs.com
+*/
 
 
 function twentythirteen_setup() {
@@ -43,8 +16,10 @@ function twentythirteen_setup() {
 }
 add_action( 'after_setup_theme', 'twentythirteen_setup' );
 
+// 开启链接管理
 add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
+//移除 Google fonts
 function remove_open_sans() {
 	wp_deregister_style( 'open-sans' );
 	wp_register_style( 'open-sans', false );
@@ -52,12 +27,9 @@ function remove_open_sans() {
 }
 add_action( 'init', 'remove_open_sans' );
 
+//自定义背景
 $yefengsbg = array('default-color' => 'f6deba','random-default' => false,'flex-height' => false,'flex-width' => false,);
 add_theme_support( 'custom-background', $yefengsbg );
-
-  add_image_size('xiangce1', 470, 270); // 别名为 thumb， 尺寸为 150x150 的设定
-  add_image_size('xiangce2', 235, 235); // 别名为 recommend， 尺寸为 120x120 的
-  add_image_size('xiangce3', 150, 150);
 
 function entry_date( $echo = true ) {
 	$format_prefix = '%2$s';
@@ -89,18 +61,6 @@ function post_time_ago( $type = 'post' ) {$d = 'comment' == $type ? 'get_comment
 function comment_time_ago( $type = 'commennt', $day = 30 ) { $d = $type == 'post' ? 'get_post_time' : 'get_comment_time';    $timediff = time() - $d('U');    if ($timediff <= 60*60*24*$day){ echo  human_time_diff($d('U'), strtotime(current_time('mysql', 0))), '前';    }    if ($timediff > 60*60*24*$day){  echo  date('Y/m/d',get_comment_date('U')), ' ', get_comment_time('H:i');    };  }
 
 
-add_filter('the_content', 'slimbox', 12);
-add_filter('get_comment_text', 'slimbox');
-function slimbox ($content) { 
-	global $post;
-	$pattern = "/<a(.*?)href=('|\")([^>]*).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>(.*?)<\/a>/i";
-	$replacement = '<a$1href=$2$3.$4$5 id="pirobox_gall_'.$post->ID.'" data-slimbox="slimbox" $6>$7</a>';
-	$content = preg_replace($pattern, $replacement, $content);
-	return $content;
-}
-
-
-
 /** 
 * wordpress pre html special chars 
 * @author yefengs 
@@ -113,31 +73,13 @@ function slimbox ($content) {
 add_filter('the_content', 'htmlspecialchars_pre', 12); 
 add_filter('get_comment_text', 'htmlspecialchars_pre'); 
 
-// function htmlspecialchars_pre ($content) { 
-//     return preg_replace_callback ("/<pre>(.*?)<\/pre>/si", create_function('$matches','return "<pre>" . htmlspecialchars($matches[1]) ."</pre>";'),$content);
-// }
-
-
-
 function htmlspecialchars_pre ($content) {  
 	
 	return preg_replace_callback ("/<pre>(.*?)<\/pre>/si", create_function('$matches','return "<"."pre".">". htmls_pecial_chars($matches[1]) ."</pre>";'),$content); 
 
 }
 
-function htmls_pecial_chars($content=''){
-	//htmlspecialchars_decode() 
-	$content = str_replace("&","&amp;",$content);
-	$content = str_replace("<","&lt;",$content);
-	$content = str_replace(">","&gt;",$content);
-	$content = str_replace('"',"&quot;",$content);
-	$content = str_replace("'","&#039;",$content);
-	$content = str_replace("	","&nbsp;&nbsp;&nbsp;&nbsp;",$content);
-	$content = str_replace(" ","&nbsp;",$content);
-return $content;
-}
-
-
+//获取文章评论人数
 function zfunc_comments_users($postid=0,$which=0) {
 	$comments = get_comments('status=approve&type=comment&post_id='.$postid); //获取文章的所有评论
 	if ($comments) {
@@ -178,11 +120,11 @@ function record_visitors()
 }
 add_action('wp_head', 'record_visitors');  
  
-
+//自定义上传重命名
 function example_wp_handle_upload_prefilter($file){
   date_default_timezone_set('PRC');
   $time=date("dHis");
-  $time = 'leyaep'.$time;
+  $time = 'm-v2ex'.$time;
   $file['name'] = $time.".".pathinfo($file['name'] , PATHINFO_EXTENSION);
   return $file;
 }
@@ -200,8 +142,7 @@ function post_views($before = '', $after = ' views', $echo = 1)
   else return $views;
 }
 
-
-
+//Get SSL Gravatar
 function get_ssl_avatar($avatar) {
    $avatar = preg_replace('/.*\/avatar\/(.*)\?s=([\d]+)&.*/','<img src="https://secure.gravatar.com/avatar/$1?s=$2" class="avatar avatar-$2" height="$2" width="$2">',$avatar);
    return $avatar;
@@ -209,7 +150,7 @@ function get_ssl_avatar($avatar) {
 add_filter('get_avatar', 'get_ssl_avatar');
 
 
-
+//获取翻页总数
 function get_all_post_nav_num(){
 		if ( is_singular() ) return;
 		global $wp_query, $paged;
@@ -219,7 +160,7 @@ function get_all_post_nav_num(){
 		echo '<div class="all-post-page" >' . $paged . '/<span class="totalpage">' . $max_page . '</span></div>'; 
 }
 
-
+//字符串截断
 function cut_string($string, $sublen, $start = 0, $code = 'UTF-8'){if($code == 'UTF-8'){$pa = "/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|\xe0[\xa0-\xbf][\x80-\xbf]|[\xe1-\xef][\x80-\xbf][\x80-\xbf]|\xf0[\x90-\xbf][\x80-\xbf][\x80-\xbf]|[\xf1-\xf7][\x80-\xbf][\x80-\xbf][\x80-\xbf]/"; preg_match_all($pa, $string, $t_string);if(count($t_string[0]) - $start > $sublen) return join('', array_slice($t_string[0], $start, $sublen))."..."; return join('', array_slice($t_string[0], $start, $sublen));}else{$start = $start*2;$sublen = $sublen*2;$strlen = strlen($string);$tmpstr = '';for($i=0; $i<$strlen; $i++){if($i>=$start && $i<($start+$sublen)){if(ord(substr($string, $i, 1))>129) $tmpstr.= substr($string, $i, 2);else $tmpstr.= substr($string, $i, 1);}if(ord(substr($string, $i, 1))>129) $i++;}if(strlen($tmpstr)<$strlen ) $tmpstr.= "...";return $tmpstr;}}
 
 function WelcomeCommentAuthorBack($email = ''){
@@ -255,19 +196,12 @@ function yefengs_comment_text( $comment_text ) {
 
 function yefengs_theme_comment($comment, $args, $depth) {
 	$GLOBALS['comment'] = $comment; 
-
 	global $commentcount;
- 
 	if(!$commentcount) { //初始化楼层计数器
- 
 		$page = get_query_var('cpage')-1;
- 
 		$cpp=get_option('comments_per_page');//获取每页评论数
- 
 		$commentcount = $cpp * $page;
- 
 	}
-
   ?>
   <li <?php comment_class(); ?> >
 	<div class="comment-lists  <?php if ($depth >= '2') { echo 'left30';} ?>" id="comment-<?php comment_ID() ?>">
@@ -298,7 +232,6 @@ function yefengs_theme_comment($comment, $args, $depth) {
 		<div class="clearfix"></div>
 	</div>
 <?php }
-
 
 /* Ajax无限评论翻页 by winy */
 function AjaxCommentsPage() {
@@ -429,7 +362,6 @@ add_filter('get_comment_text', 'slimbox');
 *
 *
 */
-
 
 add_action('wp_ajax_nopriv_ajax_comment', 'ajax_comment');
 add_action('wp_ajax_ajax_comment', 'ajax_comment');
@@ -592,15 +524,10 @@ function ihacklog_user_can_edit_comment($new_cmt_data,$comment_ID = 0) {
 
 
 
-function likescript() {
-	//if (!is_admin()) {
+function get_browser_script() {
 	wp_enqueue_script('like_post', get_template_directory_uri()."/js/mv2ex.js?v=20141122",'',false,true);//}
-	wp_localize_script('like_post', 'ajax_var', array(
-		'url' => admin_url('admin-ajax.php'),
-		'nonce' => wp_create_nonce('ajax-nonce')
-	));
 }
-add_action('wp_enqueue_scripts', 'likescript');
+add_action('wp_enqueue_scripts', 'get_browser_script');
 
 
 
