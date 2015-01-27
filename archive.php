@@ -15,7 +15,7 @@ get_header();
 
 
 
-<?php  if (is_category()) { ?>
+	<?php  if (is_category()) { ?>
 		<h2 class="archive-title">在分类目录《<?php single_cat_title(); ?>》中有如下文章</h2>
  	  <?php  } elseif( is_tag() ) { ?>
 		<h2 class="archive-title">含有标签『<?php single_tag_title(); ?>』的文章如下</h2>
@@ -30,50 +30,11 @@ get_header();
  	  <?php  } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
 		<h2 class="archive-title">博客存档文章</h2>
  	  <?php } ?>
-
-
-
-					<?php
-
-
-					/*
-					if ( is_day() ) :
-						printf( __( ' %s 这天的存档', 'twentytwelve' ), '<span>' . get_the_date() . '</span>' );
-					elseif ( is_month() ) :
-						printf( __( ' %s 这月的存档', 'twentytwelve' ), '<span>' . get_the_date( _x( 'Y F', 'monthly archives date format', 'twentytwelve' ) ) . '</span>' );
-
-					elseif ( is_year() ) :
-						printf( __( ' %s 这年的存档', 'twentytwelve' ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', 'twentytwelve' ) ) . '</span>' );
-					
-					elseif ( is_author() ) :
-						printf( __( '<span>博主写的文章如下</span>' );
-				elseif ( is_tag() ) :
-						echo '<span>与“'.single_tag_title().'”相关的内容如下</span>';
-
-				elseif ( isset($_GET['paged']) && !empty($_GET['paged']) ) :
-						echo '<span>分类目录《'.single_cat_title().'》中的内容如下</span>';
-					else :
-						_e( '存档如下', 'twentytwelve' );
-					endif;
-
-					**/	  
-				?></h2>
-
 			</header>
 		<div id="primary" role="main">
 		<?php
 			if ( have_posts() ) :
-				// Start the Loop.
 				while ( have_posts() ) : the_post();
-
-					/*
-					 * Include the post format-specific template for the content. If you want to
-					 * use this in a child theme, then include a file called called content-___.php
-					 * (where ___ is the post format) and that will be used instead.
-					 */
-					//get_template_part( 'content', get_post_format() );
-
-
 					?>
 					<article id="post-<?php the_ID(); ?>" <?php //post_class(); ?> class="index-post" >
 						<div class="auther-gravater">
