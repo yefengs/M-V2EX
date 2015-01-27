@@ -2,7 +2,7 @@
 /**
  * 默认文章样式
  * @package yefengs
- * @subpackage simple
+ * @subpackage M-V2EX
  * @since simple 1.0
  * @link yefengs.com
  * @author yefengs
@@ -24,9 +24,7 @@
 				?>
 			</header>
 			<div class="post-entry post-content">
-
 				<?php echo cut_string(strip_tags(apply_filters('the_content',$post->post_content)),52); ?>
-
 			</div>
 			<footer class="post-meta">
 				 <?php the_tags( '<span class="post-tag">', '', '</span>'); ?>
@@ -35,13 +33,9 @@
 				 <?php if ( comments_open() && ! is_single() ) : ?>
 					<span class="comments-num"><?php comments_popup_link('没有评论', '1条评论 ', '% 条评论'); ?></span>
 				<?php endif; // comments_open() ?>
-
 			</footer>
-
-
 			<div class="entry-content" itemprop="description articleBody">
 				<?php
-
 	$str = wpautop( get_the_content() );
   	$_strpos=strpos( $str, '</p>' );
 
