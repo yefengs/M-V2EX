@@ -79,15 +79,10 @@ p .alignnone{float:none;display:block;margin:5px 0 30px 0}
 body{
 background: url("images/pattern.png") repeat;
 background-color: #e2e2e2;
-
-
-	/*font-family:"Times New Roman","NSimSun",'SimSun';*/font:14px/1.785 "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti ;/*line-height:1.785;font-size:14px;*/color:#4a4a4a;letter-spacing:.02em}
-
-
-
+font:14px/1.785 "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti ;/*line-height:1.785;font-size:14px;*/color:#4a4a4a;letter-spacing:.02em
+}
 #header{
 	margin: 0;
-	/*background-image: url("/static/img/top_light.png");*/
 	text-align: center;
 	height: 44px;
 	width: 100%;
@@ -102,15 +97,7 @@ background-color: #e2e2e2;
 	background: -ms-linear-gradient(top, #ffffff 0%,#e3e3e3 100%);
 	background: linear-gradient(to bottom, #ffffff 0%,#e3e3e3 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e3e3e3',GradientType=0 );
-
-
-
-
-
-box-shadow: 0 12px 52px #CDCDCD;
-
-
-
+	box-shadow: 0 12px 52px #CDCDCD;
 }
 #head-wrapper{
 	width: 970px;
@@ -814,9 +801,9 @@ box-shadow: 0 12px 52px #CDCDCD;
 
 
 #sidebar .widget .tagcloud a:hover {
-text-decoration: none;
-color: #333;
-border: 1px solid #ccc;
+	text-decoration: none;
+	color: #333;
+	border: 1px solid #ccc;
 }
 #sidebar .widget #searchform{
 	font-size: 13px;
@@ -848,8 +835,8 @@ border: 1px solid #ccc;
 	width: 70px;
 } 
 #sidebar .admin-manage #loginform .logininput{
-margin:3px 0; 
-text-align: center;
+	margin:3px 0; 
+	text-align: center;
 }
 #sidebar .admin-manage #loginform .login{
 	border-radius: 3px;
@@ -900,68 +887,6 @@ text-align: center;
 #sidebar .widget #wp-calendar tbody tr td a{
 	color:#969cb1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #footer{
 	border-top: 1px solid #ccc;
