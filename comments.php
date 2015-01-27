@@ -1,24 +1,15 @@
 <?php
 /**
  * The template for displaying Comments
- *
- * The area of the page that contains comments and the comment form.
- *
  * @package WordPress
- * @subpackage Twenty_Thirteen
- * @since Twenty Thirteen 1.0
- */
-
-/*
- * If the current post is protected by a password and the visitor has not yet
- * entered the password we will return early without loading the comments.
+ * @subpackage M-V2EX
+ * @since M-V2EX 1.0
  */
 if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
 	die ('Error');
 if ( post_password_required() )
 	return;
 ?>
-
 <div id="comments" class="comments-area">
 	<div id="comments-title" post-id="<?php the_ID(); ?>">
 			<?php printf( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'twentythirteen' ),
@@ -49,18 +40,11 @@ if ( post_password_required() )
 			<p class="no-comments"><?php _e( 'Comments are closed.' , 'twentythirteen' ); ?></p>
 		<?php endif; ?>
 </div><!-- #comments -->
-
-
-
 <div id="respond-form">
 <div id="respond-title">添加一条新回复 <span class="gotop" style="float:right"><a href="#" title="回到最上面">回到顶部</a></span></div>
 <?php if ('open' == $post->comment_status) { ?>
-
 	<?php if ( get_option('comment_registration') && !$user_ID ) {?>
-
 	<p id="commentinfo">亲爱的，您必须 <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?redirect_to=<?php echo urlencode(get_permalink()); ?>">登录</a>后方可留言。</p>
-	
-
 	<?php } else { ?>
 	<div id="respond">
 		<form action="<?php echo get_option('siteurl'); ?>/wp-comments-post.php" method="post" id="commentform">
@@ -97,14 +81,13 @@ if ( post_password_required() )
 					<?php cancel_comment_reply_link('取消回复'); ?>
 				</div>
 			</div>
-			
 			<?php comment_id_fields(); ?>
 			<?php do_action('comment_form', $post->ID); ?>
 		</form>
 	</div>
 	<?php } //end submit form
 	} else { //comment from closed ?>
-<p id="commentinfo">亲爱的，主人已经关闭了这篇文章的评论 。</p>
+		<p id="commentinfo">亲爱的，主人已经关闭了这篇文章的评论 。</p>
 	<? } //end commform  ?>
 
 
