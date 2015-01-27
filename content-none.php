@@ -1,14 +1,3 @@
-<?php 
-
-
-
-
-
-
-
-
-?>
-
 <article id="post-0"  class="article-single" >
 	<div class="article-single-box">
 		<header class="entry-header">
