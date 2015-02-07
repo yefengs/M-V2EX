@@ -355,7 +355,6 @@ function yefengs_the_content_nofollow($content) {
 	return $content;
 }
 add_filter('the_content', 'yefengs_the_content_nofollow', 999);
-add_filter('get_comment_text', 'slimbox');
 /**
 * @author yefengs
 * @version 1.1
